@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DayTimesheet extends StatelessWidget with ChangeNotifier{
-  DayTimesheet({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+class DayTimesheetProvider with ChangeNotifier{
+  String startTime = '';
+  String endTime = '';
+  String totalTime='';
+  set setStartTime (String time) {
+    startTime;
     notifyListeners();
-    return const Placeholder();
+  }
+  set setEndTime (String time) {
+    endTime;
+    notifyListeners();
+  }
+  set setTotalTime (String time) {
+    startTime;
+    notifyListeners();
   }
 }
