@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:my_timesheet/providers/today_timesheet_provider.dart';
+import 'package:my_timesheet/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   runApp(const MyApp());
   windowManager.setResizable(true);
-  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,7 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<Something>(create: (_) => Something()),
+        ChangeNotifierProvider<TodayTimesheetProvider>(
+            create: (_) => TodayTimesheetProvider()),
         // Provider<SomethingElse>(create: (_) => SomethingElse()),
         // Provider<AnotherThing>(create: (_) => AnotherThing()),
       ],
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(title: 'My Timesheet'),
+        home: const MainScreen(title: 'My Timesheet'),
       ),
     );
   }
