@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_timesheet/components/custom_progress_bar.dart';
 import 'package:my_timesheet/components/timer_button.dart';
 import 'package:my_timesheet/providers/today_timesheet_provider.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +22,10 @@ class MainScreen extends StatelessWidget {
               DateFormat.yMMMMEEEEd().format(DateTime.now()),
               textAlign: TextAlign.left,
               style:
-                  const TextStyle(fontSize: 50.0, fontWeight: FontWeight.w900),
+                  const TextStyle(fontSize: 30.0, fontWeight: FontWeight.w900),
             ),
             Container(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.all(8.0),
               // decoration: const BoxDecoration(
               //     boxShadow: [
               //       BoxShadow(
@@ -40,7 +41,7 @@ class MainScreen extends StatelessWidget {
                   Row(
                     children: [
                       const Text(
-                        'Start Time: ',
+                        'Start: ',
                         style: TextStyle(
                             fontSize: 25.0, fontWeight: FontWeight.w500),
                       ),
@@ -50,7 +51,7 @@ class MainScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Text('End Time: ',
+                      const Text('Pause: ',
                           style: TextStyle(
                               fontSize: 25.0, fontWeight: FontWeight.w500)),
                       Text(Provider.of<TodayTimesheetProvider>(context)
@@ -61,6 +62,7 @@ class MainScreen extends StatelessWidget {
                   const Divider(
                     thickness: 2.0,
                   ),
+                  const CustomProgressBar(),
                   Row(
                     children: [
                       const Text('Total: ',
