@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_timesheet/providers/today_timesheet_provider.dart';
+import 'package:provider/provider.dart';
 
 enum STATE { startState, stopState }
 
@@ -23,11 +27,15 @@ class _TimerButtonState extends State<TimerButton> {
   }
 
   //final f = DateFormat('dddd hh:mm');
-  final f = DateFormat.MMMEd();
+  final f = DateFormat("dd/MM/yyyy HH:mm:ss a");
   @override
   Widget build(BuildContext context) {
     TextButton textButton = TextButton(
       onPressed: () {
+        // String newPeriodJson = jsonEncode({"from": "${}", "to": "", "status": "work"});
+        // Provider.of<TodayTimesheetProvider>(context, listen: false)
+        //     .setTodayModel(newPeriodJson);
+
         print(f.format(DateTime.now()));
       },
       child: const Padding(
@@ -41,11 +49,14 @@ class _TimerButtonState extends State<TimerButton> {
     if (state == STATE.stopState) {
       textButton = TextButton(
         onPressed: () {
+          Provider.of<TodayTimesheetProvider>(context, listen: false)
+              .setWorkTime(f.format(DateTime.now()), 'work');
+
           setState(() {
             state = STATE.startState;
           });
-          print('started...');
-          print(f.format(DateTime.now()));
+          // print('started...');
+          // print(f.format(DateTime.now()));
         },
         child: const Padding(
           padding: EdgeInsets.all(16.0),
@@ -58,11 +69,13 @@ class _TimerButtonState extends State<TimerButton> {
     } else if (state == STATE.startState) {
       textButton = TextButton(
         onPressed: () {
+          Provider.of<TodayTimesheetProvider>(context, listen: false)
+              .setBreakTime(f.format(DateTime.now()), 'break');
           setState(() {
             state = STATE.stopState;
           });
-          print('stopped...');
-          print(f.format(DateTime.now()));
+          // print('stopped...');
+          // print(f.format(DateTime.now()));
         },
         child: const Padding(
           padding: EdgeInsets.all(16.0),

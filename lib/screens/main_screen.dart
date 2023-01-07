@@ -54,9 +54,9 @@ class MainScreen extends StatelessWidget {
                       const Text('Pause: ',
                           style: TextStyle(
                               fontSize: 25.0, fontWeight: FontWeight.w500)),
-                      Text(Provider.of<TodayTimesheetProvider>(context)
-                          .getEndTime()
-                          .toString())
+                      // Text(Provider.of<TodayTimesheetProvider>(context)
+                      //     .getBreakTime()
+                      //     .toString())
                     ],
                   ),
                   const Divider(
