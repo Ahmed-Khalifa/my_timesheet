@@ -8,41 +8,62 @@ class TodayTimesheetProvider extends ChangeNotifier {
 
   final officialWorkHours = 9;
 
-  String _workTime = '';
-  String _breakTime = '';
+  int _workTime = 0;
+  int _breakTime = 0;
   String _status = '';
+  int counter = 0;
 
   double _totalWorkHours = 0;
   double _totalBreakHours = 0.0;
-  List<String> workHours = [];
-  List<String> breakHours = [];
+  List<int> workHours = [];
+  List<int> breakHours = [];
 
-  void setWorkTime(String time, String status) {
+  void setWorkTime(int time, String status) {
     _workTime = time;
+    _status = status;
     workHours.add(time);
-    print(workHours);
-    print(breakHours);
+    setTodayModel();
+    // print(workHours);
+    // print(breakHours);
     notifyListeners();
   }
 
-  void setBreakTime(String time, String status) {
+  void setBreakTime(int time, String status) {
     _breakTime = time;
+    _status = status;
     breakHours.add(_breakTime);
-    print(workHours);
-    print(breakHours);
+    setTodayModel();
+    // print(workHours);
+    // print(breakHours);
     notifyListeners();
   }
 
-  // void setStatus(String status) {
-  //   _status = status;
-  //   notifyListeners();
-  // }
+  List<TodayModel> getTodayWorkHours() {
+    return todayWorkHours;
+  }
 
-  void setTodayModel(String newPeriod) {
-    var data = jsonDecode(newPeriod);
-    TodayModel period = TodayModel.fromJson(data);
-    todayWorkHours.add(period);
-    print(todayWorkHours);
+  void setTodayModel() {
+    if (_workTime != 0 && _breakTime != 0) {
+      if (_workTime > _breakTime) {
+        TodayModel period = TodayModel.fromJson({
+          "from": _breakTime.toString(),
+          "to": _workTime.toString(),
+          "status": _status
+        });
+        todayWorkHours.add(period);
+      } else if (_workTime < _breakTime) {
+        TodayModel period = TodayModel.fromJson({
+          "from": _workTime.toString(),
+          "to": _breakTime.toString(),
+          "status": _status
+        });
+        todayWorkHours.add(period);
+      }
+    }
+    for (var model in todayWorkHours) {
+      print(model.to);
+    }
+    // print(todayWorkHours);
     notifyListeners();
   }
   // void setEndTime(int time) {
@@ -59,7 +80,7 @@ class TodayTimesheetProvider extends ChangeNotifier {
   //   return _workStartTime;
   // }
 
-  String getWorkime() {
+  int getWorkime() {
     return _workTime;
   }
 

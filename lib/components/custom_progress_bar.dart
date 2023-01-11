@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_timesheet/providers/today_timesheet_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomProgressBar extends StatefulWidget {
   const CustomProgressBar({super.key});
@@ -17,26 +19,32 @@ class _CustomProgressBarState extends State<CustomProgressBar> {
         color: const Color.fromARGB(255, 238, 238, 238),
         child: Row(
           children: [
-            SizedBox(
-              height: progressHeight,
-              width: 100,
-              child: Container(
-                color: Colors.green.withOpacity(0.50),
-              ),
-            ),
-            Container(
-              height: progressHeight,
-              width: 30,
-              color: Colors.red.withOpacity(0.50),
-            ),
-            Container(
-              height: progressHeight,
-              width: 50,
-              color: Colors.green.withOpacity(0.50),
-            )
+            //listContainers(context)
+            // Container(
+            //   height: progressHeight,
+            //   width: 70,
+            //   color: Colors.green.withOpacity(0.50),
+            // ),
+            // Container(
+            //   height: progressHeight,
+            //   width: 30,
+            //   color: Colors.red.withOpacity(0.50),
+            // ),
+            // Container(
+            //   height: progressHeight,
+            //   width: 50,
+            //   color: Colors.green.withOpacity(0.50),
+            // )
           ],
         ),
       ),
     );
   }
+
+  // List<Container> listContainers(BuildContext context) {
+  //   List<Container> containers = [];
+  //   var data = Provider.of<TodayTimesheetProvider>(context, listen: false)
+  //       .getTodayWorkHours();
+  //   for (var d in data) {}
+  // }
 }

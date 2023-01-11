@@ -28,64 +28,46 @@ class _TimerButtonState extends State<TimerButton> {
 
   //final f = DateFormat('dddd hh:mm');
   final f = DateFormat("dd/MM/yyyy HH:mm:ss a");
+
   @override
   Widget build(BuildContext context) {
-    TextButton textButton = TextButton(
-      onPressed: () {
-        // String newPeriodJson = jsonEncode({"from": "${}", "to": "", "status": "work"});
-        // Provider.of<TodayTimesheetProvider>(context, listen: false)
-        //     .setTodayModel(newPeriodJson);
+    return state == STATE.stopState
+        ? TextButton(
+            onPressed: () {
+              Provider.of<TodayTimesheetProvider>(context, listen: false)
+                  .setWorkTime(DateTime.now().millisecondsSinceEpoch, 'work');
 
-        print(f.format(DateTime.now()));
-      },
-      child: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text(
-          'Start',
-          style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-    if (state == STATE.stopState) {
-      textButton = TextButton(
-        onPressed: () {
-          Provider.of<TodayTimesheetProvider>(context, listen: false)
-              .setWorkTime(f.format(DateTime.now()), 'work');
-
-          setState(() {
-            state = STATE.startState;
-          });
-          // print('started...');
-          // print(f.format(DateTime.now()));
-        },
-        child: const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Start',
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
-    } else if (state == STATE.startState) {
-      textButton = TextButton(
-        onPressed: () {
-          Provider.of<TodayTimesheetProvider>(context, listen: false)
-              .setBreakTime(f.format(DateTime.now()), 'break');
-          setState(() {
-            state = STATE.stopState;
-          });
-          // print('stopped...');
-          // print(f.format(DateTime.now()));
-        },
-        child: const Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Stop',
-            style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
-    }
-    return textButton;
+              setState(() {
+                state = STATE.startState;
+              });
+              // print('started...');
+              // print(f.format(DateTime.now()));
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'Start',
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+          )
+        : TextButton(
+            onPressed: () {
+              Provider.of<TodayTimesheetProvider>(context, listen: false)
+                  .setBreakTime(DateTime.now().millisecondsSinceEpoch, 'break');
+              setState(() {
+                state = STATE.stopState;
+              });
+              // print('stopped...');
+              // print(f.format(DateTime.now()));
+            },
+            child: const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'Stop',
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+          );
   }
 }
