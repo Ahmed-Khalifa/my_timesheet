@@ -22,11 +22,11 @@
 // }
 
 class TodayModel {
-  String? from;
-  String? to;
-  String? status;
+  String from = '';
+  String to = '';
+  String status = '';
 
-  TodayModel({this.from, this.to, this.status});
+  TodayModel({required this.from, required this.to, required this.status});
 
   TodayModel.fromJson(Map<String, dynamic> json) {
     from = json['from'];
